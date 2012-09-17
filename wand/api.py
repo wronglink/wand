@@ -155,6 +155,10 @@ try:
     library.MagickGetImageHeight.argtypes = [ctypes.c_void_p]
     library.MagickGetImageHeight.restype = ctypes.c_size_t
 
+    library.MagickGetImageUnits.argtypes = [ctypes.c_void_p]
+
+    library.MagickSetImageUnits.argtypes = [ctypes.c_void_p, ctypes.c_int]
+
     library.MagickGetImageDepth.argtypes = [ctypes.c_void_p]
     library.MagickGetImageDepth.restype = ctypes.c_size_t
 
@@ -304,6 +308,8 @@ if platform.system() == 'Windows':
 else:
     if platform.system() == 'Darwin':
         libc = ctypes.cdll.LoadLibrary('libc.dylib')
+    elif platform.system() == 'FreeBSD':
+        libc = ctypes.cdll.LoadLibrary(ctypes.util.find_library('c'))
     else:
         libc = ctypes.cdll.LoadLibrary('libc.so.6')
     libc.fdopen.argtypes = [ctypes.c_int, ctypes.c_char_p]
